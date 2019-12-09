@@ -2,7 +2,7 @@ using Microsoft.AspNetCore;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.Hosting;
 using Lamar.Microsoft.DependencyInjection;
-using GraphQLDemo;
+using GraphQLDemo.Middleware;
 
 namespace GraphQLDemo
 {
@@ -10,7 +10,9 @@ namespace GraphQLDemo
     {
         public static void Main(string[] args)
         {
-            CreateWebHostBuilder(args).Build().Run();
+            CreateWebHostBuilder(args)
+                .Build()
+                .Run();
         }
 
         public static IWebHostBuilder CreateWebHostBuilder(string[] args) =>

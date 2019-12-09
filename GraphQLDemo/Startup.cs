@@ -4,6 +4,7 @@ using GraphQL.Server.Ui.Playground;
 using GraphQLDemo.Data.Context;
 using GraphQLDemo.Data.Repositories;
 using GraphQLDemo.GraphQL;
+using GraphQLDemo.Middleware;
 using GraphQLDemo.Types;
 using Lamar;
 using Microsoft.AspNetCore.Builder;
@@ -13,6 +14,7 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
+using Microsoft.Extensions.Logging;
 using System;
 
 namespace GraphQLDemo
@@ -91,6 +93,19 @@ namespace GraphQLDemo
             // app.UseGraphQLWebSockets<CarvedRockSchema>("/graphql");
             app.UseGraphQL<CourseManagementSchema>();
             app.UseGraphQLPlayground(new GraphQLPlaygroundOptions());
+            app.MigrateDatabaseAndSeed();
+            //using (var scope = app.ApplicationServices.GetRequiredService<IServiceScopeFactory>().CreateScope())
+            //{
+            //    //migrate database
+            //    scope.ServiceProvider.GetService<CourseManagementContext>().MigrateDatabase();
+
+            //    //seed initial data
+            //    var services = scope.ServiceProvider;
+            //    var context = services.GetRequiredService<CourseManagementContext>();
+            //    var logger = services.GetService<ILogger<CourseManagementSeeding>>();
+
+            //    new CourseManagementSeeding().SeedAsync(context, logger);
+            //}
         }
     }
 }

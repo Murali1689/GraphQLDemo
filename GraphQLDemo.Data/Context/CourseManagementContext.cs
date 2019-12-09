@@ -1,5 +1,7 @@
 ﻿using GraphQLDemo.Data.Models;
 using Microsoft.EntityFrameworkCore;
+using Polly;
+using System;
 
 namespace GraphQLDemo.Data.Context
 {
@@ -9,6 +11,17 @@ namespace GraphQLDemo.Data.Context
         {
         }
 
+        public CourseManagementContext()
+        {
+        }
+
         public virtual DbSet<Course> Course { get; set; }
+
+        public void MigrateDatabase()
+        {
+            Policy.Handle<Exception>()
+                    .WaitAndRetry(10, r => TimeSpan.FromSeconds(10))
+                    .Execute(() => Database.Migrate());
+        }
     }
 }

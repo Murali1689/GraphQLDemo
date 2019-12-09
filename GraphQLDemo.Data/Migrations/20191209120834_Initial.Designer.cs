@@ -9,8 +9,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace GraphQLDemo.Data.Migrations
 {
     [DbContext(typeof(CourseManagementContext))]
-    [Migration("20191204113125_initial")]
-    partial class initial
+    [Migration("20191209120834_Initial")]
+    partial class Initial
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
